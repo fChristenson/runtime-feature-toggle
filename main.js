@@ -1,8 +1,8 @@
-window.__COUNTRY__ = "US"; // we set this at runtime
-
 const React = require("react");
 const ReactDOM = require("react-dom");
 const { toggle, Toggle } = require("./toggle");
+
+window.__COUNTRY__ = "SE"; // we set this at runtime
 
 const sweden = () => {
   console.log("sweden");
@@ -15,8 +15,8 @@ const america = () => {
 };
 
 const functions = {
-  SE: sweden,
-  US: america
+  US: america,
+  default: sweden
 };
 
 const SwedishApp = ({ country, onClick }) => (
@@ -28,8 +28,8 @@ const AmericanApp = ({ country, onClick }) => (
 );
 
 const components = {
-  SE: <SwedishApp country="Sweden" onClick={() => toggle(functions)} />,
-  US: <AmericanApp country="America" onClick={() => toggle(functions)} />
+  US: <AmericanApp country="America" onClick={() => toggle(functions)} />,
+  default: <SwedishApp country="Sweden" onClick={() => toggle(functions)} />
 };
 
 ReactDOM.render(

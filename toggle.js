@@ -8,10 +8,10 @@ const toggle = functions => {
 
   if (!window.__COUNTRY__) throw new Error("__COUNTRY__ not set");
 
-  const fn = functions[window.__COUNTRY__];
+  const fn = functions[window.__COUNTRY__] || functions.default;
 
   if (typeof fn !== "function")
-    throw new Error(`${window.__COUNTRY__} does not have a function`);
+    throw new Error(`${window.__COUNTRY__} is not have a function`);
 
   return fn();
 };
@@ -19,7 +19,7 @@ const toggle = functions => {
 module.exports.toggle = toggle;
 
 const Toggle = ({ components }) => {
-  const Component = components[window.__COUNTRY__];
+  const Component = components[window.__COUNTRY__] || components.default;
 
   if (!Component)
     throw new Error(`${window.__COUNTRY__} does not have a Component`);
