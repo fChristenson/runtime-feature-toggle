@@ -1,11 +1,13 @@
-const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
-  entry: path.join(__dirname, "main.js"),
+  entry: {
+    v1: path.join(__dirname, "main.v1.js"),
+    v2: path.join(__dirname, "main.v2.js")
+  },
   output: {
     path: __dirname,
-    filename: "bundle.js"
+    filename: "bundle.[name].js"
   },
   mode: "development",
   module: {

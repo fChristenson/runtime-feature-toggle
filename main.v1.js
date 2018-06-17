@@ -2,7 +2,7 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 const { toggle, Toggle } = require("./toggle");
 
-window.__COUNTRY__ = "SE"; // we set this at runtime
+window.__COUNTRY__ = "US"; // we set this at runtime
 
 const sweden = () => {
   console.log("sweden");

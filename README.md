@@ -3,6 +3,7 @@
 ## What we will cover
 
 * What is a feature toggle?
+* Why would we want to have runtime feature toggles?
 * How can we express contextual features without messy code?
 
 Notes

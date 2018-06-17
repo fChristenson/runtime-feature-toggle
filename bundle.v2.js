@@ -66,19 +66,30 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./main.v1.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./main.v2.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./main.v1.js":
+/***/ "./config.js":
+/*!*******************!*\
+  !*** ./config.js ***!
+  \*******************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const configs = [{\n  env: \"default\",\n  headerIsEnabled: true,\n  subHeaderIsEnabled: true\n}, {\n  env: \"US\",\n  headerIsEnabled: true,\n  subHeaderIsEnabled: false\n}];\n\nmodule.exports = env => configs.find(c => c.env === env) || configs[0];\n\n//# sourceURL=webpack:///./config.js?");
+
+/***/ }),
+
+/***/ "./main.v2.js":
 /*!********************!*\
-  !*** ./main.v1.js ***!
+  !*** ./main.v2.js ***!
   \********************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\nconst ReactDOM = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\nconst { toggle, Toggle } = __webpack_require__(/*! ./toggle */ \"./toggle.js\");\n\nwindow.__COUNTRY__ = \"US\"; // we set this at runtime\n\nconst sweden = () => {\n  console.log(\"sweden\");\n  console.log(\"--------------------------\");\n};\n\nconst america = () => {\n  console.log(\"america\");\n  console.log(\"--------------------------\");\n};\n\nconst functions = {\n  US: america,\n  default: sweden\n};\n\nconst SwedishApp = ({ country, onClick }) => React.createElement(\n  \"button\",\n  { onClick: onClick },\n  country\n);\n\nconst AmericanApp = ({ country, onClick }) => React.createElement(\n  \"button\",\n  { onClick: onClick },\n  country\n);\n\nconst components = {\n  US: React.createElement(AmericanApp, { country: \"America\", onClick: () => toggle(functions) }),\n  default: React.createElement(SwedishApp, { country: \"Sweden\", onClick: () => toggle(functions) })\n};\n\nReactDOM.render(React.createElement(Toggle, { components: components }), document.getElementById(\"root\"));\n\n//# sourceURL=webpack:///./main.v1.js?");
+eval("const React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\nconst ReactDOM = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\nconst getConfig = __webpack_require__(/*! ./config */ \"./config.js\");\n\nconst config = getConfig(\"SE\"); // we set this at runtime\n\nconst App = () => {\n  return React.createElement(\n    \"div\",\n    null,\n    config.headerIsEnabled ? React.createElement(\n      \"h1\",\n      null,\n      \"header\"\n    ) : null,\n    config.subHeaderIsEnabled ? React.createElement(\n      \"h2\",\n      null,\n      \"subheader\"\n    ) : null\n  );\n};\n\nReactDOM.render(React.createElement(App, null), document.getElementById(\"root\"));\n\n//# sourceURL=webpack:///./main.v2.js?");
 
 /***/ }),
 
@@ -331,17 +342,6 @@ eval("/** @license React v16.3.2\n * react.development.js\n *\n * Copyright (c) 
 
 "use strict";
 eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs/react.development.js */ \"./node_modules/react/cjs/react.development.js\");\n}\n\n\n//# sourceURL=webpack:///./node_modules/react/index.js?");
-
-/***/ }),
-
-/***/ "./toggle.js":
-/*!*******************!*\
-  !*** ./toggle.js ***!
-  \*******************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\n// functions is an object where the key is the name of the\n// market that uses it\nconst toggle = functions => {\n  if (typeof functions !== \"object\" || Array.isArray(functions)) throw new Error(\"functions not object\");\n\n  if (!window.__COUNTRY__) throw new Error(\"__COUNTRY__ not set\");\n\n  const fn = functions[window.__COUNTRY__] || functions.default;\n\n  if (typeof fn !== \"function\") throw new Error(`${window.__COUNTRY__} is not have a function`);\n\n  return fn();\n};\n\nmodule.exports.toggle = toggle;\n\nconst Toggle = ({ components }) => {\n  const Component = components[window.__COUNTRY__] || components.default;\n\n  if (!Component) throw new Error(`${window.__COUNTRY__} does not have a Component`);\n\n  return Component;\n};\n\nmodule.exports.Toggle = Toggle;\n\n//# sourceURL=webpack:///./toggle.js?");
 
 /***/ })
 
